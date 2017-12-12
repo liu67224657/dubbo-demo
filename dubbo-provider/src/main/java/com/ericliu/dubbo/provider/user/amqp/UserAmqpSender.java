@@ -31,10 +31,10 @@ public class UserAmqpSender {
 //        Message message = MessageBuilder.withBody(user)
 //                .setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN)
 //                .build();
-//        String routingKey = "user.event.save";
+//        String routingKey = "user.event.saveAuth";
 //        rabbitTemplate.setExchange();
-//        rabbitTemplate.setRoutingKey("user.event.save");
-        rabbitTemplate.convertAndSend("user.event.exchange","user.event.save",user);
+//        rabbitTemplate.setRoutingKey("user.event.saveAuth");
+        rabbitTemplate.convertAndSend("user.event.exchange","user.event.saveAuth",user);
 //        rabbitTemplate.send(routingKey, message);
     }
 

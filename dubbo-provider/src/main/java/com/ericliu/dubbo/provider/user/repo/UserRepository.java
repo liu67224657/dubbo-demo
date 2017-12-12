@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * @author <a href=mailto:ericliu@fivewh.com>ericliu</a>,Date:2017/12/4
  */
 @Repository
-public interface UserRepoistrey extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 }

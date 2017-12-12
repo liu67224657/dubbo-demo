@@ -13,6 +13,7 @@ public class Main {
     private static UserService userService;
 
     public static void main(String[] args) {
+
 //测试常规服务
         ClassPathXmlApplicationContext context =
                 new ClassPathXmlApplicationContext("dubbo/*-consumer.xml");

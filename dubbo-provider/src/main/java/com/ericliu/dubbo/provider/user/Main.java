@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @author <a href=mailto:ericliu@fivewh.com>ericliu</a>,Date:2017/11/28
  */
 @Configuration
-@EnableJpaRepositories(basePackages="com.ericliu.dubbo.provider.user.repo",entityManagerFactoryRef="emf")
+@EnableJpaRepositories(basePackages="com.ericliu.dubbo.provider.*.repo",entityManagerFactoryRef="emf")
 public class Main {
 
     public static void main(String[] args) {

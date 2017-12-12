@@ -5,11 +5,9 @@ import com.ericliu.dubbo.api.user.service.UserService;
 import com.ericliu.dubbo.provider.user.amqp.UserAmqpSender;
 import com.ericliu.dubbo.provider.user.dao.UserDao;
 import com.ericliu.dubbo.provider.user.domain.User;
-import com.ericliu.dubbo.provider.user.repo.UserRepoistrey;
+import com.ericliu.dubbo.provider.user.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * @author <a href=mailto:ericliu@fivewh.com>ericliu</a>,Date:2017/11/28
@@ -17,13 +15,10 @@ import javax.annotation.Resource;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserDao userDao;
-
-    private final UserRepoistrey userRepoistrey;
+    private final UserRepository userRepoistrey;
     private UserAmqpSender userAmqp;
 
-    public UserServiceImpl(UserRepoistrey userRepoistrey, UserAmqpSender userAmqp) {
+    public UserServiceImpl(UserRepository userRepoistrey, UserAmqpSender userAmqp) {
         this.userRepoistrey = userRepoistrey;
         this.userAmqp = userAmqp;
 
@@ -31,6 +26,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * jpa
+     *
      * @param user
      * @return
      */
@@ -44,7 +40,17 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-//    public UserDTO save(UserDTO user) {
+    public UserDTO get(Long id) {
+        UserDTO returnObj = new UserDTO();
+        userRepoistrey.findById(id).ifPresent(user -> {
+            returnObj.setId(user.getId());
+            returnObj.setName(user.getName());
+        });
+
+        return null;
+    }
+
+//    public UserDTO saveAuth(UserDTO user) {
 //        User userDoamin = new User();
 //        userDoamin.setName(user.getName());
 //        userDoamin = userDao.insertUser(userDoamin);

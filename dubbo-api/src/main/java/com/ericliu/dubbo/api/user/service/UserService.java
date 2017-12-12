@@ -7,5 +7,7 @@ import com.ericliu.dubbo.api.user.dto.UserDTO;
  */
 public interface UserService {
 
-     UserDTO save(UserDTO user);
+    UserDTO save(UserDTO user);
+
+    public UserDTO get(Long id);
 }

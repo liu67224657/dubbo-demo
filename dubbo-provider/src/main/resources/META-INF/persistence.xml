@@ -3,13 +3,15 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence persistence_1_0.xsd">
 
-    <persistence-unit name="my-pu">
+    <persistence-unit name="m">
         <description>My Persistence Unit</description>
         <properties>
             <property name="javax.persistence.jdbc.url"
-                      value="objectdb://localhost/my.odb"/>
-            <property name="javax.persistence.jdbc.user" value="admin"/>
-            <property name="javax.persistence.jdbc.password" value="admin"/>
+                      value="objectdb://localhost/user-server"/>
+            <property name="javax.persistence.jdbc.user" value="root "/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.show_sql" value="true" />
         </properties>
     </persistence-unit>
 

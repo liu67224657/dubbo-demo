@@ -11,10 +11,10 @@
     <context:component-scan base-package="com.ericliu.dubbo" annotation-config="true"/>
 
     <dubbo:service interface="com.ericliu.dubbo.api.user.service.UserService" ref="userService"/>
-    <!--<dubbo:service interface="com.ericliu.dubbo.api.auth.service.AuthService" ref="authService"/>-->
+    <dubbo:service interface="com.ericliu.dubbo.api.auth.service.AuthService" ref="authService"/>
 
     <bean id="userService" class="com.ericliu.dubbo.provider.user.service.UserServiceImpl" />
-    <!--<bean id="authService" class="com.ericliu.dubbo.provider.auth.service.AuthServiceImpl" />-->
+    <bean id="authService" class="com.ericliu.dubbo.provider.auth.service.AuthServiceImpl" />
 
     <dubbo:monitor protocol="registry"/>
 </beans>
