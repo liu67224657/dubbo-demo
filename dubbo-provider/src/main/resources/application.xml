@@ -110,4 +110,23 @@
     <!--</bean>-->
 
 
+    <bean id="contextSource"
+          class="org.springframework.ldap.core.support.LdapContextSource">
+        <property name="url" value="ldap://127.0.0.1:389" />
+        <property name="base" value="dc=ericliu,dc=com" />
+        <property name="userDn" value="liuhao" />
+        <property name="password" value="root" />
+        <property name="referral" value="follow"></property>
+    </bean>
+
+    <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
+        <constructor-arg ref="contextSource" />
+    </bean>
+
+    <!--<bean id="userDao" class="cn.com.ldap.UserDaoLdapImpl">-->
+        <!--<property name="ldapTemplate">-->
+            <!--<ref bean="ldapTemplate"/>-->
+        <!--</property>-->
+    <!--</bean>-->
+
 </beans>

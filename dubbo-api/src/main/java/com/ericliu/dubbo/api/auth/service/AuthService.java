@@ -17,4 +17,6 @@ public interface AuthService {
 
     AuthInfoDTO findAuthInfoByLoginName(String loginName);
 
+    void ldap();
+
 }

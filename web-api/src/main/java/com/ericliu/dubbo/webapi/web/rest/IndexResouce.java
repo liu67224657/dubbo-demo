@@ -1,5 +1,6 @@
 package com.ericliu.dubbo.webapi.web.rest;
 
+import com.ericliu.dubbo.api.auth.service.AuthService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.slf4j.Logger;
@@ -17,6 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class IndexResouce {
     private static final Logger logger = LoggerFactory.getLogger(IndexResouce.class);
 
+
+    private  final AuthService authService;
+
+    public IndexResouce(AuthService authService) {
+        this.authService = authService;
+    }
+
     @RequestMapping("/403")
     public String unauthorizedRole(){
         logger.info("------没有权限-------");
@@ -25,8 +33,9 @@ public class IndexResouce {
 
     @RequestMapping(value="/index",method=RequestMethod.GET)
     public String index(Model model){
-        String userName = (String) SecurityUtils.getSubject().getPrincipal();
-        model.addAttribute("username", userName);
+        authService.ldap();
+//        String userName = (String) SecurityUtils.getSubject().getPrincipal();
+//        model.addAttribute("username", userName);
         return "index";
     }
 

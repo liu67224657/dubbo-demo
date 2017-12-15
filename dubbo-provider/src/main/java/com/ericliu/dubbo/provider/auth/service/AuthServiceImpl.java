@@ -10,6 +10,7 @@ import com.ericliu.dubbo.provider.auth.mapper.AuthMapper;
 import com.ericliu.dubbo.provider.auth.repo.AuthRepository;
 import com.ericliu.dubbo.provider.auth.repo.AuthRoleRepository;
 import com.ericliu.dubbo.provider.auth.repo.PermissionRepository;
+import com.ericliu.dubbo.provider.user.dao.SSODao;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -25,11 +26,13 @@ public class AuthServiceImpl implements AuthService {
     private final AuthRepository authRepository;
     private final AuthRoleRepository authRoleRepository;
     private final PermissionRepository permissionRepository;
+    private final SSODao ssoDao;
 
-    public AuthServiceImpl(AuthRepository authRepository, AuthRoleRepository authRoleRepository, PermissionRepository permissionRepository) {
+    public AuthServiceImpl(AuthRepository authRepository, AuthRoleRepository authRoleRepository, PermissionRepository permissionRepository, SSODao ssoDao) {
         this.authRepository = authRepository;
         this.authRoleRepository = authRoleRepository;
         this.permissionRepository = permissionRepository;
+        this.ssoDao = ssoDao;
     }
 
     @Override
@@ -42,7 +45,6 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthDTO findAuthDTO(String loginName) {
         Auth auth = authRepository.findByLoginName(loginName);
-
         if (auth != null) {
             return AuthMapper.INSTANCE.toAuthDTO(auth);
         }
@@ -54,6 +56,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthInfoDTO findAuthInfoByLoginName(String loginName) {
         AuthDTO authDTO = findAuthDTO(loginName);
+
 
         if (authDTO == null) {
             return null;
@@ -77,5 +80,10 @@ public class AuthServiceImpl implements AuthService {
         authInfoDTO.setRoles(roles);
 
         return authInfoDTO;
+    }
+
+    @Override
+    public void ldap() {
+        System.out.println(ssoDao.getAllPersonNames());
     }
 }
