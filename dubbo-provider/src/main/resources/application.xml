@@ -112,10 +112,10 @@
 
     <bean id="contextSource"
           class="org.springframework.ldap.core.support.LdapContextSource">
-        <property name="url" value="ldap://127.0.0.1:389" />
-        <property name="base" value="dc=ericliu,dc=com" />
-        <property name="userDn" value="liuhao" />
-        <property name="password" value="root" />
+        <property name="url" value="ldap://10.95.177.242:389/" />
+        <property name="base" value="dc=liuhaoeric,dc=com" />
+        <property name="userDn" value="cn=root,dc=liuhaoeric,dc=com" />
+        <property name="password" value="123456" />
         <property name="referral" value="follow"></property>
     </bean>
 
