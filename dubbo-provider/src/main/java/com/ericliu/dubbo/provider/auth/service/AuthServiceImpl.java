@@ -88,7 +88,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public AuthUserDTO saveAuthUser(AuthUserDTO dto) {
         AuthUser authUser = AuthMapper.INSTANCE.toAuthUserEntity(dto);
-        boolean bval = ssoDao.saveUser(authUser);
+        boolean bval = ssoDao.save(authUser);
         if (!bval) {
             return null;
         }
@@ -98,7 +98,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public List<AuthUserDTO> findAuthUserDTOByOu(String ou) {
-        List<AuthUser> authUsers = ssoDao.findUsersByOu(ou);
+        List<AuthUser> authUsers = ssoDao.findByOu(ou);
         if (authUsers == null) {
             return null;
         }
@@ -107,7 +107,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthUserDTO findAuthUserByCn(String cn) {
-        AuthUser authUser = ssoDao.findUserByCn(cn);
+        AuthUser authUser = ssoDao.findByCn(cn);
         if (authUser == null) {
             return null;
         }
