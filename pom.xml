@@ -12,6 +12,8 @@
         <module>dubbo-provider</module>
         <module>dubbo-consumer</module>
         <module>web-api</module>
+        <module>annotation</module>
+        <module>netty-demo</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
