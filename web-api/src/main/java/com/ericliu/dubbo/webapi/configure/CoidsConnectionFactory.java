@@ -1,17 +1,20 @@
-package com.ericliu.dubbo.provider.user.configure;
+package com.ericliu.dubbo.webapi.configure;
 
 import io.codis.jodis.JedisResourcePool;
 import io.codis.jodis.RoundRobinJedisPool;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.*;
+import org.springframework.data.redis.connection.RedisClusterConnection;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisSentinelConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnection;
-import org.springframework.lang.Nullable;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.Protocol;
 
 import java.io.IOException;
+
+//import org.springframework.lang.Nullable;
 
 /**
  * @author <a href=mailto:ericliu@fivewh.com>ericliu</a>,Date:2018/1/5
@@ -24,20 +27,22 @@ public class CoidsConnectionFactory implements InitializingBean, DisposableBean,
 
     private boolean convertPipelineAndTxResults = true;
     private JedisResourcePool jedisResourcePool;
-    private RedisStandaloneConfiguration standaloneConfig = new RedisStandaloneConfiguration("localhost",
-            Protocol.DEFAULT_PORT);
+//    private RedisStandaloneConfiguration standaloneConfig = new RedisStandaloneConfiguration("localhost",
+//            Protocol.DEFAULT_PORT);
 
 
-    public CoidsConnectionFactory(String zkServer, int timeout, String zkProxyDir) {
-        this.zkServer = zkServer;
-        this.timeout = timeout;
-        this.zkProxyDir = zkProxyDir;
-    }
 
-    public CoidsConnectionFactory(String zkServer, String zkProxyDir) {
-        this.zkServer = zkServer;
-        this.zkProxyDir = zkProxyDir;
-    }
+
+
+//    public CoidsConnectionFactory(String zkServer, int timeout, String zkProxyDir) {
+//        this.zkServer = zkServer;
+//        this.timeout = timeout;
+//        this.zkProxyDir = zkProxyDir;
+//    }
+//
+//    public CoidsConnectionFactory(String zkServer, String zkProxyDir) {
+//        this(zkServer,30000,zkProxyDir);
+//    }
 
     @Override
     public RedisConnection getConnection() {
@@ -48,7 +53,7 @@ public class CoidsConnectionFactory implements InitializingBean, DisposableBean,
     }
 
     public int getDatabase() {
-        return standaloneConfig.getDatabase();
+        return 0;
     }
 
     @Override
@@ -70,7 +75,7 @@ public class CoidsConnectionFactory implements InitializingBean, DisposableBean,
         return null;
     }
 
-    @Nullable
+//    @Nullable
     @Override
     public DataAccessException translateExceptionIfPossible(RuntimeException e) {
         return null;
@@ -90,5 +95,29 @@ public class CoidsConnectionFactory implements InitializingBean, DisposableBean,
     @Override
     public void afterPropertiesSet() throws Exception {
         jedisResourcePool = RoundRobinJedisPool.create().curatorClient(zkServer, 30000).zkProxyDir(zkProxyDir).build();
+    }
+
+    public void setZkServer(String zkServer) {
+        this.zkServer = zkServer;
+    }
+
+    public String getZkServer() {
+        return zkServer;
+    }
+
+    public int getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
+
+    public String getZkProxyDir() {
+        return zkProxyDir;
+    }
+
+    public void setZkProxyDir(String zkProxyDir) {
+        this.zkProxyDir = zkProxyDir;
     }
 }

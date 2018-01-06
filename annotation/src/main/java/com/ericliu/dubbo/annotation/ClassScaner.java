@@ -1,7 +1,5 @@
 package com.ericliu.dubbo.annotation;
 
-import com.sun.tools.internal.jxc.gen.config.Classes;
-import sun.jvm.hotspot.debugger.ThreadContext;
 
 import java.io.File;
 import java.io.FileFilter;
