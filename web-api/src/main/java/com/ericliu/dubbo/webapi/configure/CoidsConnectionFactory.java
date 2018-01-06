@@ -22,16 +22,15 @@ import java.io.IOException;
 public class CoidsConnectionFactory implements InitializingBean, DisposableBean, RedisConnectionFactory {
 
     private String zkServer;
-    private int timeout = 30000;
+    private Integer timeout = 30000;
     private String zkProxyDir;
+    private Integer database = 0;
+    private String password;
 
     private boolean convertPipelineAndTxResults = true;
     private JedisResourcePool jedisResourcePool;
 //    private RedisStandaloneConfiguration standaloneConfig = new RedisStandaloneConfiguration("localhost",
 //            Protocol.DEFAULT_PORT);
-
-
-
 
 
 //    public CoidsConnectionFactory(String zkServer, int timeout, String zkProxyDir) {
@@ -75,7 +74,7 @@ public class CoidsConnectionFactory implements InitializingBean, DisposableBean,
         return null;
     }
 
-//    @Nullable
+    //    @Nullable
     @Override
     public DataAccessException translateExceptionIfPossible(RuntimeException e) {
         return null;
@@ -94,7 +93,8 @@ public class CoidsConnectionFactory implements InitializingBean, DisposableBean,
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        jedisResourcePool = RoundRobinJedisPool.create().curatorClient(zkServer, 30000).zkProxyDir(zkProxyDir).build();
+        jedisResourcePool = RoundRobinJedisPool.create().curatorClient(zkServer, timeout)
+                .zkProxyDir(zkProxyDir).database(database).password(password).build();
     }
 
     public void setZkServer(String zkServer) {
@@ -119,5 +119,21 @@ public class CoidsConnectionFactory implements InitializingBean, DisposableBean,
 
     public void setZkProxyDir(String zkProxyDir) {
         this.zkProxyDir = zkProxyDir;
+    }
+
+    public void setTimeout(Integer timeout) {
+        this.timeout = timeout;
+    }
+
+    public void setDatabase(Integer database) {
+        this.database = database;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
